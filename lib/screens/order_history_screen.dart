@@ -405,6 +405,97 @@ class OrderCard extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20),
+              // Order Summary
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.background,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Order Summary',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Order ID:',
+                          style: TextStyle(color: AppColors.textSecondary),
+                        ),
+                        Text(
+                          '#${order.id.substring(order.id.length - 6)}',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Status:',
+                          style: TextStyle(color: AppColors.textSecondary),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: _getStatusColor(order.statusColor),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            order.statusText,
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Total:',
+                          style: TextStyle(color: AppColors.textSecondary),
+                        ),
+                        Text(
+                          '\$${order.totalAmount.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Items (${order.items.length})',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              SizedBox(height: 12),
               Expanded(
                 child: ListView.builder(
                   itemCount: order.items.length,
@@ -420,8 +511,8 @@ class OrderCard extends StatelessWidget {
                       child: Row(
                         children: [
                           Container(
-                            width: 50,
-                            height: 50,
+                            width: 60,
+                            height: 60,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               image: DecorationImage(
@@ -437,10 +528,22 @@ class OrderCard extends StatelessWidget {
                               children: [
                                 Text(
                                   item.coffee.name,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
                                 ),
+                                SizedBox(height: 4),
                                 Text(
-                                  '${item.size} • ${item.milk} • Qty: ${item.quantity}',
+                                  '${item.size} • ${item.milk}',
+                                  style: TextStyle(
+                                    color: AppColors.textSecondary,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  'Quantity: ${item.quantity}',
                                   style: TextStyle(
                                     color: AppColors.textSecondary,
                                     fontSize: 12,
@@ -449,12 +552,26 @@ class OrderCard extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Text(
-                            '\$${item.totalPrice.toStringAsFixed(2)}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.primary,
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '\$${item.totalPrice.toStringAsFixed(2)}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primary,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                '\$${item.coffee.price.toStringAsFixed(2)} each',
+                                style: TextStyle(
+                                  color: AppColors.textSecondary,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

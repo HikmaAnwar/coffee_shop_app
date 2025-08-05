@@ -10,7 +10,7 @@ class OrderProvider with ChangeNotifier {
   void addOrder(List<CartItem> items, double totalAmount, {String? notes}) {
     final order = Order(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
-      items: items,
+      items: List.from(items), // Create a copy of the items list
       totalAmount: totalAmount,
       orderDate: DateTime.now(),
       notes: notes,
@@ -38,5 +38,10 @@ class OrderProvider with ChangeNotifier {
 
   List<Order> getOrdersByStatus(OrderStatus status) {
     return _orders.where((order) => order.status == status).toList();
+  }
+
+  void clearOrders() {
+    _orders.clear();
+    notifyListeners();
   }
 }

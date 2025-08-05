@@ -24,13 +24,20 @@ class CartItem {
     };
   }
 
-  // Add this factory method
   factory CartItem.fromJson(Map<String, dynamic> json) {
+    // Handle the case where coffee might be a Map or already a Coffee object
+    Coffee coffee;
+    if (json['coffee'] is Map<String, dynamic>) {
+      coffee = Coffee.fromJson(json['coffee']);
+    } else {
+      coffee = json['coffee'] as Coffee;
+    }
+
     return CartItem(
-      coffee: Coffee.fromJson(json['coffee']),
-      quantity: json['quantity'],
-      size: json['size'],
-      milk: json['milk'],
+      coffee: coffee,
+      quantity: json['quantity'] ?? 1,
+      size: json['size'] ?? 'Medium',
+      milk: json['milk'] ?? 'Regular',
     );
   }
 }
