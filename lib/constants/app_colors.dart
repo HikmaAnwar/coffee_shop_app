@@ -8,4 +8,5 @@ class AppColors {
   static const Color textSecondary = Color.fromARGB(255, 78, 38, 11);
   static const Color white = Color.fromARGB(255, 251, 238, 226);
   static const Color shadow = Color(0xFFE0E0E0);
+  static const Color frontPage = Color.fromARGB(255, 247, 247, 247);
 }

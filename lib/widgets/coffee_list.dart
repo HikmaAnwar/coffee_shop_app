@@ -40,8 +40,7 @@ class CoffeeList extends StatelessWidget {
         name: 'Latte',
         description: 'Smooth and creamy coffee',
         price: 4.00,
-        imageUrl:
-            'https://images.unsplash.com/photo-1541167760496-1628856a772a?w=200',
+        imageUrl: '/lib/utils/latte.png',
         category: 'Latte',
         rating: 4.7,
         reviewCount: 156,
