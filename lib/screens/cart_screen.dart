@@ -4,6 +4,8 @@ import '../constants/app_colors.dart';
 import '../models/cart_item.dart';
 import '../providers/cart_provider.dart';
 import '../providers/order_provider.dart';
+import '../screens/payment_screen.dart';
+// Make sure this import path is correct and that payment_screen.dart defines a PaymentScreen widget.
 
 class CartScreen extends StatelessWidget {
   @override
@@ -92,6 +94,20 @@ class CartScreen extends StatelessWidget {
                     'Add some delicious coffee to get started!',
                     style: TextStyle(color: AppColors.textSecondary),
                   ),
+                  SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      'Start Shopping',
+                      style: TextStyle(color: AppColors.white),
+                    ),
+                  ),
                 ],
               ),
             );
@@ -154,20 +170,13 @@ class CartScreen extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          final orderProvider = Provider.of<OrderProvider>(
+                          Navigator.push(
                             context,
-                            listen: false,
-                          );
-                          orderProvider.addOrder(cart.items, cart.totalAmount);
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Order placed successfully!'),
-                              backgroundColor: AppColors.primary,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  PaymentScreen(totalAmount: cart.totalAmount),
                             ),
                           );
-                          cart.clear();
-                          Navigator.pop(context);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
@@ -177,7 +186,7 @@ class CartScreen extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'Checkout',
+                          'Proceed to Payment',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
