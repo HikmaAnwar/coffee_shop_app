@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'screens/home_screen.dart';
+import 'screens/login_screen.dart';
 import 'constants/app_colors.dart';
 import 'providers/cart_provider.dart';
+import 'providers/auth_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,8 +15,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => CartProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (ctx) => AuthProvider()),
+        ChangeNotifierProvider(create: (ctx) => CartProvider()),
+      ],
       child: MaterialApp(
         title: 'FOLD.',
         debugShowCheckedModeBanner: false,
@@ -28,7 +32,11 @@ class MyApp extends StatelessWidget {
             elevation: 0,
           ),
         ),
-        home: HomeScreen(),
+        home: Consumer<AuthProvider>(
+          builder: (context, auth, child) {
+            return auth.isAuthenticated ? LoginScreen() : LoginScreen();
+          },
+        ),
       ),
     );
   }
