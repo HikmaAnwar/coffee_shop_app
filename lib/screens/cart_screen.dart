@@ -3,11 +3,14 @@ import 'package:provider/provider.dart';
 import '../constants/app_colors.dart';
 import '../models/cart_item.dart';
 import '../providers/cart_provider.dart';
+// ignore: unused_import
 import '../providers/order_provider.dart';
 import '../screens/payment_screen.dart';
 // Make sure this import path is correct and that payment_screen.dart defines a PaymentScreen widget.
 
 class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

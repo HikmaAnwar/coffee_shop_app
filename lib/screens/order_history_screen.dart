@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../constants/app_colors.dart';
 import '../models/order.dart';
 import '../providers/order_provider.dart';
+import 'order_tracking_screen.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
   @override
@@ -319,7 +320,29 @@ class OrderCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 12),
-                if (order.status == OrderStatus.pending)
+                Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              OrderTrackingScreen(orderId: order.id),
+                        ),
+                      );
+                    },
+                    icon: Icon(Icons.track_changes, size: 16),
+                    label: Text('Track Order'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+                if (order.status == OrderStatus.pending) ...[
+                  SizedBox(width: 12),
                   Expanded(
                     child: ElevatedButton.icon(
                       onPressed: () {
@@ -335,6 +358,7 @@ class OrderCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                ],
               ],
             ),
           ],

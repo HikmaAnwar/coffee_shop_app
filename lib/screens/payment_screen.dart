@@ -5,14 +5,14 @@ import '../providers/cart_provider.dart';
 import '../providers/order_provider.dart';
 import '../services/payment_service.dart';
 import '../services/notification_service.dart';
+import 'order_tracking_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
   final double totalAmount;
 
-  const PaymentScreen({super.key, required this.totalAmount});
+  PaymentScreen({required this.totalAmount});
 
   @override
-  // ignore: library_private_types_in_public_api
   _PaymentScreenState createState() => _PaymentScreenState();
 }
 
@@ -57,15 +57,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
       if (result.success) {
         // Create order
-        // ignore: use_build_context_synchronously
         final cartProvider = Provider.of<CartProvider>(context, listen: false);
         final orderProvider = Provider.of<OrderProvider>(
-          // ignore: use_build_context_synchronously
           context,
           listen: false,
         );
 
         orderProvider.addOrder(cartProvider.items, cartProvider.totalAmount);
+        final latestOrder =
+            orderProvider.orders.first; // Get the most recent order
         cartProvider.clear();
 
         // Show success notification
@@ -74,8 +74,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
           body: 'Your order has been placed successfully.',
         );
 
-        // Show success dialog
-        _showSuccessDialog(result);
+        // Navigate directly to order tracking
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OrderTrackingScreen(orderId: latestOrder.id),
+          ),
+        );
       } else {
         _showErrorDialog(result.message);
       }
@@ -127,11 +132,29 @@ class _PaymentScreenState extends State<PaymentScreen> {
         actions: [
           ElevatedButton(
             onPressed: () {
-              Navigator.of(context).popUntil((route) => route.isFirst);
+              // Close the dialog first
+              Navigator.of(context).pop();
+
+              // Get the order that was just created
+              final orderProvider = Provider.of<OrderProvider>(
+                context,
+                listen: false,
+              );
+              final latestOrder =
+                  orderProvider.orders.first; // Get the most recent order
+
+              // Navigate to order tracking screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      OrderTrackingScreen(orderId: latestOrder.id),
+                ),
+              );
             },
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
             child: Text(
-              'Continue Shopping',
+              'Track Order',
               style: TextStyle(color: AppColors.white),
             ),
           ),
