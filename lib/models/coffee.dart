@@ -6,6 +6,8 @@ class Coffee {
   final String imageUrl;
   final String category;
   final bool isAvailable;
+  final double rating;
+  final int reviewCount;
 
   Coffee({
     required this.id,
@@ -15,6 +17,8 @@ class Coffee {
     required this.imageUrl,
     required this.category,
     this.isAvailable = true,
+    this.rating = 4.5,
+    this.reviewCount = 0,
   });
 
   factory Coffee.fromJson(Map<String, dynamic> json) {
@@ -26,6 +30,8 @@ class Coffee {
       imageUrl: json['imageUrl'],
       category: json['category'],
       isAvailable: json['isAvailable'] ?? true,
+      rating: json['rating']?.toDouble() ?? 4.5,
+      reviewCount: json['reviewCount'] ?? 0,
     );
   }
 }
