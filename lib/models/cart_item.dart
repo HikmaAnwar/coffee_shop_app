@@ -23,4 +23,14 @@ class CartItem {
       'totalPrice': totalPrice,
     };
   }
+
+  // Add this factory method
+  factory CartItem.fromJson(Map<String, dynamic> json) {
+    return CartItem(
+      coffee: Coffee.fromJson(json['coffee']),
+      quantity: json['quantity'],
+      size: json['size'],
+      milk: json['milk'],
+    );
+  }
 }

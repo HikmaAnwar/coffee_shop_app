@@ -5,6 +5,7 @@ import 'screens/login_screen.dart';
 import 'constants/app_colors.dart';
 import 'providers/cart_provider.dart';
 import 'providers/auth_provider.dart';
+import 'providers/order_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,9 +20,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (ctx) => AuthProvider()),
         ChangeNotifierProvider(create: (ctx) => CartProvider()),
+        ChangeNotifierProvider(create: (ctx) => OrderProvider()),
       ],
       child: MaterialApp(
-        title: 'FOLD.',
+        title: 'Coffee Shop',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.brown,

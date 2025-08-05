@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../constants/app_colors.dart';
 import '../models/cart_item.dart';
 import '../providers/cart_provider.dart';
+import '../providers/order_provider.dart';
 
 class CartScreen extends StatelessWidget {
   @override
@@ -153,7 +154,12 @@ class CartScreen extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          // TODO: Implement checkout
+                          final orderProvider = Provider.of<OrderProvider>(
+                            context,
+                            listen: false,
+                          );
+                          orderProvider.addOrder(cart.items, cart.totalAmount);
+
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('Order placed successfully!'),
@@ -161,6 +167,7 @@ class CartScreen extends StatelessWidget {
                             ),
                           );
                           cart.clear();
+                          Navigator.pop(context);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,

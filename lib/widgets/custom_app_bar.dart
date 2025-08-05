@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants/app_colors.dart';
 import '../screens/cart_screen.dart';
+import '../screens/order_history_screen.dart'; // Add this import
 import '../providers/cart_provider.dart';
 import '../providers/auth_provider.dart';
 
@@ -39,6 +40,37 @@ class CustomAppBar extends StatelessWidget {
               ),
               Row(
                 children: [
+                  // Order History Button
+                  IconButton(
+                    icon: Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.shadow.withOpacity(0.1),
+                            blurRadius: 8,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        Icons.receipt_long,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OrderHistoryScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(width: 8),
+                  // Cart Button
                   Stack(
                     children: [
                       IconButton(
@@ -103,6 +135,7 @@ class CustomAppBar extends StatelessWidget {
                     ],
                   ),
                   SizedBox(width: 8),
+                  // Profile Button
                   GestureDetector(
                     onTap: () {
                       showDialog(

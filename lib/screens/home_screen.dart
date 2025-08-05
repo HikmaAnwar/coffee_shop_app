@@ -3,6 +3,7 @@ import '../constants/app_colors.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/category_list.dart';
 import '../widgets/coffee_list.dart';
+// Make sure that coffee_list.dart exports a CoffeeList widget.
 import '../widgets/search_bar.dart' as custom_widgets;
 
 class HomeScreen extends StatefulWidget {
