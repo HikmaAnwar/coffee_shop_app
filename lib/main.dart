@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'screens/splash_screen.dart'; // Add this import
-import 'screens/login_screen.dart';
 import 'constants/app_colors.dart';
 import 'providers/cart_provider.dart';
 import 'providers/auth_provider.dart';

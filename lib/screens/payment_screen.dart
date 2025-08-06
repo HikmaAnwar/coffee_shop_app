@@ -10,7 +10,7 @@ import 'order_tracking_screen.dart';
 class PaymentScreen extends StatefulWidget {
   final double totalAmount;
 
-  PaymentScreen({required this.totalAmount});
+  const PaymentScreen({super.key, required this.totalAmount});
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
@@ -104,63 +104,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
       }
     }
     return true;
-  }
-
-  void _showSuccessDialog(PaymentResult result) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: Row(
-          children: [
-            Icon(Icons.check_circle, color: Colors.green, size: 30),
-            SizedBox(width: 10),
-            Text('Payment Successful'),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Transaction ID: ${result.transactionId}'),
-            SizedBox(height: 8),
-            Text('Amount: \$${result.amount.toStringAsFixed(2)}'),
-            SizedBox(height: 8),
-            Text('Your order has been placed successfully!'),
-          ],
-        ),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              // Close the dialog first
-              Navigator.of(context).pop();
-
-              // Get the order that was just created
-              final orderProvider = Provider.of<OrderProvider>(
-                context,
-                listen: false,
-              );
-              final latestOrder =
-                  orderProvider.orders.first; // Get the most recent order
-
-              // Navigate to order tracking screen
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OrderTrackingScreen(orderId: latestOrder.id),
-                ),
-              );
-            },
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
-            child: Text(
-              'Track Order',
-              style: TextStyle(color: AppColors.white),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   void _showErrorDialog(String message) {

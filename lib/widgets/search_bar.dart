@@ -5,7 +5,8 @@ class SearchBar extends StatefulWidget {
   final Function(String) onSearchChanged;
   final String hintText;
 
-  SearchBar({
+  const SearchBar({
+    super.key,
     required this.onSearchChanged,
     this.hintText = 'Search for coffee...',
   });

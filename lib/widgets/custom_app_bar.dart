@@ -7,6 +7,8 @@ import '../providers/cart_provider.dart';
 import '../providers/auth_provider.dart';
 
 class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(
@@ -24,7 +26,7 @@ class CustomAppBar extends StatelessWidget {
                   Text(
                     'Good Morning!',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       color: AppColors.textSecondary,
                     ),
                   ),

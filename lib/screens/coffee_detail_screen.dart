@@ -7,7 +7,7 @@ import '../providers/cart_provider.dart';
 class CoffeeDetailScreen extends StatefulWidget {
   final Coffee coffee;
 
-  CoffeeDetailScreen({required this.coffee});
+  const CoffeeDetailScreen({super.key, required this.coffee});
 
   @override
   _CoffeeDetailScreenState createState() => _CoffeeDetailScreenState();

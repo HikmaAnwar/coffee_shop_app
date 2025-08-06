@@ -3,7 +3,7 @@ import '../models/order.dart';
 import '../models/cart_item.dart';
 
 class OrderProvider with ChangeNotifier {
-  List<Order> _orders = [];
+  final List<Order> _orders = [];
 
   List<Order> get orders => _orders;
 

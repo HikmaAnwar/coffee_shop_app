@@ -3,7 +3,7 @@ import '../models/cart_item.dart';
 import '../models/coffee.dart';
 
 class CartProvider with ChangeNotifier {
-  List<CartItem> _items = [];
+  final List<CartItem> _items = [];
 
   List<CartItem> get items => _items;
 

@@ -7,8 +7,7 @@ import 'package:provider/provider.dart';
 class OrderTrackingScreen extends StatelessWidget {
   final String orderId;
 
-  const OrderTrackingScreen({Key? key, required this.orderId})
-    : super(key: key);
+  const OrderTrackingScreen({super.key, required this.orderId});
 
   @override
   Widget build(BuildContext context) {

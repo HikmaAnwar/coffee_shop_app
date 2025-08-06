@@ -213,7 +213,11 @@ class CartItemCard extends StatelessWidget {
   final CartItem item;
   final Function(int) onQuantityChanged;
 
-  CartItemCard({required this.item, required this.onQuantityChanged});
+  const CartItemCard({
+    super.key,
+    required this.item,
+    required this.onQuantityChanged,
+  });
 
   @override
   Widget build(BuildContext context) {

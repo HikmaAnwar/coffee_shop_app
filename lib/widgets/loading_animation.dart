@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 
 class LoadingAnimation extends StatefulWidget {
+  const LoadingAnimation({super.key});
+
   @override
   _LoadingAnimationState createState() => _LoadingAnimationState();
 }

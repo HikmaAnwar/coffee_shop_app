@@ -6,6 +6,8 @@ import '../providers/order_provider.dart';
 import 'order_tracking_screen.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
+  const OrderHistoryScreen({super.key});
+
   @override
   _OrderHistoryScreenState createState() => _OrderHistoryScreenState();
 }
@@ -152,7 +154,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
 class OrderCard extends StatelessWidget {
   final Order order;
 
-  OrderCard({required this.order});
+  const OrderCard({super.key, required this.order});
 
   Color _getStatusColor(String statusColor) {
     try {

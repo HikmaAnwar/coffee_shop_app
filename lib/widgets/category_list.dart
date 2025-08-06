@@ -6,6 +6,7 @@ class CategoryList extends StatelessWidget {
   final Function(String) onCategorySelected;
 
   CategoryList({
+    super.key,
     required this.selectedCategory,
     required this.onCategorySelected,
   });
@@ -21,7 +22,7 @@ class CategoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 40,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,

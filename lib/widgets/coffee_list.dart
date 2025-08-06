@@ -9,7 +9,11 @@ class CoffeeList extends StatelessWidget {
   final String selectedCategory;
   final String? searchQuery;
 
-  CoffeeList({required this.selectedCategory, this.searchQuery});
+  const CoffeeList({
+    super.key,
+    required this.selectedCategory,
+    this.searchQuery,
+  });
 
   List<Coffee> getCoffeeList() {
     return [
@@ -166,7 +170,11 @@ class AnimatedCoffeeCard extends StatefulWidget {
   final Coffee coffee;
   final int index;
 
-  AnimatedCoffeeCard({required this.coffee, required this.index});
+  const AnimatedCoffeeCard({
+    super.key,
+    required this.coffee,
+    required this.index,
+  });
 
   @override
   _AnimatedCoffeeCardState createState() => _AnimatedCoffeeCardState();
@@ -229,7 +237,7 @@ class _AnimatedCoffeeCardState extends State<AnimatedCoffeeCard>
 class CoffeeCard extends StatelessWidget {
   final Coffee coffee;
 
-  CoffeeCard({required this.coffee});
+  const CoffeeCard({super.key, required this.coffee});
 
   @override
   Widget build(BuildContext context) {
