@@ -61,8 +61,7 @@ class CoffeeList extends StatelessWidget {
         name: 'Mocha',
         description: 'Chocolate and coffee delight',
         price: 5.00,
-        imageUrl:
-            'https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=200',
+        imageUrl: '/lib/utils/frontCup.png',
         category: 'Mocha',
         rating: 4.9,
         reviewCount: 203,
