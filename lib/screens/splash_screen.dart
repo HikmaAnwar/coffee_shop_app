@@ -48,8 +48,8 @@ class SplashScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 32),
                 // Coffee cup image
-                Image.network(
-                  '/lib/utils/frontCup.png',
+                Image.asset(
+                  '/assets/images/frontCup.png',
                   height: 300,
                   fit: BoxFit.contain,
                 ),

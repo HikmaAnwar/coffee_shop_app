@@ -1,0 +1,6 @@
+{
+  "buildCommand": "curl -o- https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_windows_3.24.5-stable.zip | tar -xf - && flutter/bin/flutter build web",
+  "outputDirectory": "build/web",
+  "framework": null,
+  "installCommand": "echo 'Flutter will be installed during build'"
+}
