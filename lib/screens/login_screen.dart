@@ -5,10 +5,27 @@ import '../providers/auth_provider.dart';
 import 'signup_screen.dart';
 import 'home_screen.dart';
 
+// Custom clipper for diagonal image
+class DiagonalClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(0, size.height - 80); // bottom left
+    path.lineTo(size.width, size.height - 160); // bottom right (slanted up)
+    path.lineTo(size.width, 0); // top right
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 
@@ -56,38 +73,43 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: AppColors.background,
       body: Column(
         children: [
-          // Top half for the image (25%)
+          // Top section with diagonal split
           Expanded(
-            flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/coffee_background.jpg'),
-                  fit: BoxFit.cover,
+            flex: 1, // 50% height
+            child: ClipPath(
+              clipper: DiagonalClipper(),
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/coffee_background.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
           ),
-          // Bottom half for the form (75%)
+
+          // Bottom section with form
           Expanded(
-            flex: 3,
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+            flex: 1, // 50% height
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
               child: Form(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    // Title
                     Text(
-                      'Sign In',
+                      'Log In',
                       style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: AppColors.textPrimary,
                       ),
                     ),
-                    SizedBox(height: 40),
+                    SizedBox(height: 4),
+
                     // Email Field
                     TextFormField(
                       controller: _emailController,
@@ -123,7 +145,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 12),
+
                     // Password Field
                     TextFormField(
                       controller: _passwordController,
@@ -142,9 +165,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: AppColors.textSecondary,
                           ),
                           onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
+                            setState(
+                              () => _obscurePassword = !_obscurePassword,
+                            );
                           },
                         ),
                         border: OutlineInputBorder(
@@ -172,6 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       },
                     ),
+
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -182,7 +206,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 12),
+
                     // Login Button
                     Consumer<AuthProvider>(
                       builder: (context, auth, child) {
@@ -190,16 +215,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: auth.isLoading ? null : _login,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primary,
-                            padding: EdgeInsets.symmetric(vertical: 16),
+                            padding: EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            minimumSize: Size(double.infinity, 50),
+                            minimumSize: Size(double.infinity, 45),
                           ),
                           child: auth.isLoading
                               ? SizedBox(
-                                  height: 24,
-                                  width: 24,
+                                  height: 20,
+                                  width: 20,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
                                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -208,9 +233,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 )
                               : Text(
-                                  'Sign In',
+                                  'Log In',
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.white,
                                   ),
@@ -218,72 +243,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                     ),
-                    SizedBox(height: 24),
-                    // "Or" separator
-                    Row(
-                      children: [
-                        Expanded(child: Divider(color: AppColors.shadow)),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            'Or',
-                            style: TextStyle(color: AppColors.textSecondary),
-                          ),
-                        ),
-                        Expanded(child: Divider(color: AppColors.shadow)),
-                      ],
-                    ),
-                    SizedBox(height: 24),
-                    // Social Login Icons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.shadow,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.facebook,
-                              color: Colors.blue,
-                              size: 30,
-                            ),
-                            onPressed: () {},
-                          ),
-                        ),
-                        SizedBox(width: 32),
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.shadow,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.g_mobiledata,
-                              color: Colors.red,
-                              size: 30,
-                            ),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 24),
+                    SizedBox(height: 12),
+
                     // Sign Up Link
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
